@@ -6,6 +6,17 @@ import datetime
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
+# One thing to note — every time you open VSCode or 
+# a new terminal and want to work on this project,  
+# you need to activate the venv again first 
+# with: 
+# venv\Scripts\activate in cmd. 
+# It doesn't stay active permanently
+#
+# New EXE build command:
+# pyinstaller --onefile --windowed tk_test5_subF.py
+# 🗿 
+
 # Folders
 OUT_F = "output_cleaned"
 TEMP_F = "temp_extract"
@@ -28,7 +39,7 @@ def clean_data_file(file_path):
             content = f.read()
 
         for word in WORDS:
-            content = re.sub(re.escape(word), f"[KAME{'HAME' * round(int((WORDS.index(word))/7)) + 'HAAAA'}]", content, flags=re.IGNORECASE)
+            content = re.sub(re.escape(word), f"[CHEE{'E' * round(int((WORDS.index(word))/7)) + 'SEBURGER'}]", content, flags=re.IGNORECASE)
 
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -165,7 +176,8 @@ folder_label = tk.Label(root, text="No folder selected")
 folder_label.pack()
 
 tk.Label(root, text="Enter Password (leave empty if none):").pack()
-password_entry = tk.Entry(root, show="*")#🗿
+password_entry = tk.Entry(root, show='🗿')#🗿
+
 password_entry.pack(pady=5) 
 
 btn_clean = tk.Button(root, text="Clean", command=start_cleaning)

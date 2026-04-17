@@ -1,3 +1,7 @@
 Input_ZIPPSTERS/
 output_cleaned/
 temp_extract/
+build/
+venv/
+__pycache__/
+*.pyc

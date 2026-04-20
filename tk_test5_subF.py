@@ -3,10 +3,11 @@ import re
 import zipfile
 import threading
 import datetime
+
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-# One thing to note — every time you open VSCode or 
+# One thing to note every time you open VSCode or 
 # a new terminal and want to work on this project,  
 # you need to activate the venv again first 
 # with: 
@@ -38,9 +39,22 @@ def clean_data_file(file_path):
         with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
             content = f.read()
 
-        for word in WORDS:
-            content = re.sub(re.escape(word), f"[CHEE{'E' * round(int((WORDS.index(word))/7)) + 'SEBURGER'}]", content, flags=re.IGNORECASE)
+        jojo = ""
+        for char in content: # replace word thru conditional char replacement
+            if char != " " and char != "\n": # and char != "." and char != "," and char != "!" and char != "?" and char != ";" and char != ":" and char != "[" and char != "]" and char != "(" and char != ")" and char != "{" and char != "}" and char != "\"" and char != "'" and char != "/" and char != "\\" and char != "|" and char != "<" and char != ">" and char != "-" and char != "_" and char != "+" and char != "=" and char != "*" and char != "&" and char != "^" and char != "%":
+                jojo += char
+            else:
+                print(char)
+                print(jojo)
+                jojo = ""
 
+        for word in WORDS:
+            # content = re.sub(re.escape(word), f"[CHEE{'E' * round(int((WORDS.index(word))/7)) + 'SEBURGER'}]", content, flags=re.IGNORECASE)
+            content = re.sub(re.escape(word), "[REDACTED]", content, flags=re.IGNORECASE)
+            
+        # for word in WORDS:
+        #     content = re.sub(re.escape(word), f"[{re.escape(word)}]", content, flags=re.IGNORECASE)
+        
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
 
@@ -119,7 +133,6 @@ def clean_all_zips(folder, password):
     # Build popup message
     msg = f"Cleaned: {len(succeeded)} / {len(zips)} zip(s)\n"
     msg += f"Saved to: output_cleaned/{subfolder_name}/\n"
-
     if failed:
         msg += f"\nFailed ({len(failed)}):\n"
         msg += "\n".join(f"  - {f}" for f in failed)
@@ -176,8 +189,7 @@ folder_label = tk.Label(root, text="No folder selected")
 folder_label.pack()
 
 tk.Label(root, text="Enter Password (leave empty if none):").pack()
-password_entry = tk.Entry(root, show='🗿')#🗿
-
+password_entry = tk.Entry(root, show='*')#🗿
 password_entry.pack(pady=5) 
 
 btn_clean = tk.Button(root, text="Clean", command=start_cleaning)
